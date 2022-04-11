@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ContentDao">
+    <resultMap type="Content" id="contentResultMap" >
+        <id property="contentId" column="content_id"/>
+        <result property="contentName" column="content_name"/>
+        <result property="contentNum" column="content_num"/>
+        <result property="contentDetail" column="content_detail"/>
+    </resultMap>
+
+    <insert id="addContent" parameterType="Content">
+        INSERT INTO content(content_id,content_name,content_num,content_detail) VALUE (#{contentId},#{contentName}, #{contentNum}, #{contentDetail})
+    </insert>
+
+    <delete id="deleteContentById" parameterType="long">
+        DELETE FROM content WHERE content_id=#{contentID}
+    </delete>
+
+    <update id="updateContent" parameterType="Content">
+        UPDATE content
+        SET content_name = #{contentName},content_num = #{contentNum},content_detail = #{contentDetail}
+        WHERE  content_id = #{contentId}
+    </update>
+
+    <select id="queryById" resultType="Content" parameterType="long">
+        SELECT content_id,content_name,content_num,content_detail
+        FROM content
+        WHERE content_id=#{contentId}
+    </select>
+    <select id="queryAllContent" resultMap="contentResultMap">
+        SELECT content_id,content_name,content_num,content_detail
+        FROM content
+    </select>
+
+</mapper>
